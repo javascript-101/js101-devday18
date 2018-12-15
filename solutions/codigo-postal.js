@@ -18,14 +18,3 @@ async function getPostalCode(event) {
     button.classList.remove('is-loading')
   }
 }
-
-// 3. Definimos una función async que obtendra el código postal de la API en base a la latitud y longitud
-async function fetchPostalCode(position) {
-  const { latitude, longitude } = position.coords
-  const apiEndpoint = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-
-  const response = await fetch(apiEndpoint)
-  const data = await response.json()
-
-  return data.address.postcode
-}

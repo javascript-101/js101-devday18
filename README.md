@@ -14,7 +14,7 @@
 - Como definir e invocar [funciones](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
 - Como usar [forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) para recorrer un array
 - Definir componentes re-utilizables usando [Template strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
-- Como manipular el DOM usando [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) e [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)
+- Como manipular el DOM usando [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector), [classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList) e [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)
 - Como definir constantes usando [const](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) y variables usando [let](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)
 - Como utilizar [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) junto con [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) para obtener datos de una API
 
@@ -22,7 +22,46 @@
 
 ### 1er Proyecto - Mi Código Postal
 
----
+#### 1 - Escuchar el evento click y disparar una función
+
+- Conceptos
+
+  - `const`
+  - `document.querySelector`
+  - `element.addEventListener`
+
+* Pasos a seguir
+  1. Definimos una constante `mainButton` y le asignamos el valor de obtener el elemento usando `document.querySelector` pasandole como paramétro `'.zip-code'`
+  2. A la constante definida podemos invocarle un método llamado `addEventListener` y como primer parámetro le pasamos `'click'` y como segundo parámetro `getPostalCode` (que es una función que todavía no tenemos definida)
+
+#### 2 - Definir nuestra lógica principal
+
+- Conceptos
+
+  - `async/await`
+  - `classList`
+  - `try / catch / finally`
+  - `Template strings`
+
+* Pasos a seguir
+  1. Definimos una función `async` llamada `getPostalCode` que va a recibir como argumento `event` el cuál es toda la información del evento que acaba de suceder, en este caso el click.
+  2. Definimos una constante llamada `button` y le asignamos `event.target` el cuál es la referencia al elemento que ejecutó el evento, en este caso el boton.
+  3. Ahora antes de ejecutar alguna función asincrónica queremos mostrar un spinner para ello solamente debemos agregar una clase en el boton, invocando un método en la constante `button` llamado `classList.add` y pasandole como parámetro `'is-loading'`
+  4. Algunas veces nuestro código puede tener algún error para que el error no haga que el usuario no pueda seguir usando el sitio vamos a definir el siguiente código:
+     ```javascript
+     try {
+       ...
+     } catch (error) {
+       ...
+     } finally {
+       ...
+     }
+     ```
+  5. Dentro del `try` vamos a definir una constante `position` que le vamos a asignar el valor de invocar `getPosition` (ya definida) anteponiendo la palabra `await`. Para probar que funciona podés hacer un `console.log(position)`
+  6. Ahora que ya tenemos definido `position` debemos obtener el código postal. Para ello definimos una constante `postalCode` y le asignamos el valor de invocar a `fetchPostalCode` (ya definida) pasandole como parámetro `position` y anteponiendo la palabra `await`. Para probar que funciona podés hacer un `console.log(postalCode)`
+  7. Antes de salir del `try` invocamos a la función `notifySucess` (ya definida) pasandole como parámetro un template string que digam `'Tu código postal es C1414'` que contenga la constante `postalCode` al final.
+  8. Entrando al `catch` vamos a ejecutar la función `notifyWarning` (ya definida) pasandole como parámetro `error.message`
+  9. Entrando al `finally` vamos a eliminar el spinner tanto si hubo un error o no, invocando a al `mainButton` el método `classList.remove` pasándole como parámetro `'is-loading'`
 
 ### 2do Proyecto - Feriados 2018
 

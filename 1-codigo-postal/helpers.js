@@ -6,6 +6,16 @@ function getPosition(options) {
   }
 }
 
+async function fetchPostalCode(position) {
+  const { latitude, longitude } = position.coords
+  const apiEndpoint = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+
+  const response = await fetch(apiEndpoint)
+  const data = await response.json()
+
+  return data.address.postcode
+}
+
 function notifySuccess(message) {
   bulmaToast.toast({
     message,
