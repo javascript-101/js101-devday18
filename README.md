@@ -1,4 +1,4 @@
-# JS101 - DevDay
+# JS101 - DEVDAY
 
 ## Dinámica
 
